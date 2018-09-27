@@ -9,16 +9,21 @@ class segment(object):
   """
   Class for holding segment-specific information
   """
-  data = {
-    'audiofile': "",  # refer to some file if possible
-    'channel': 1,  # by default, use channel 1
-    'speaker': "UnknownSpeaker",  # need a speaker id
-    'start': 0.0,  # start at beginning of file
-    'stop': 0.0,  # this should go the length of the file or the segment
-    'gender': "male",  # Arbitrarily choose a default gender since unknown does not play well with some programs
-    'label': "",
-    'text': ""  # text to be populated from read class
-  }
+
+  # refer to some file if possible
+  audiofile = ""
+  # by default, use channel 1
+  channel = 1
+  # need a speaker id
+  speaker = "UnknownSpeaker"
+  # start at beginning of file
+  start = 0.0
+  # this should go the length of the file or the segment
+  stop = 0.0
+  # Arbitrarily choose a default gender since unknown does not play well with some programs
+  label = "<o,f0,male>"
+  # text to be populated from read class
+  text = ""
 
   def __init__(self, segment_dict):
     """
@@ -27,7 +32,7 @@ class segment(object):
     >>> seg = segment({"text":"this is a test"})
 
     """
-    self.data = segment_dict
+    self.__dict__.update(segment_dict)
 
   def __str__(self, data_handler=None):
     """
@@ -36,12 +41,7 @@ class segment(object):
       >>> print(seg)
       this is a test
     """
-    ret_str = ""
-
-    if data_handler is not None:
-      ret_str = data_handler.format_segment(self)
-    else:
-      ret_str = self.data['text']
+    ret_str = data_handler.format_segment(self) if data_handler else self.text
 
     return ret_str
 
