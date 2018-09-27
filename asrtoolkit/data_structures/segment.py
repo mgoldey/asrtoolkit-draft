@@ -21,12 +21,20 @@ class segment(object):
   }
 
   def __init__(self, segment_dict):
-    " Stores and initializes audiofile, channel, speaker,  start & stop times, label, and text "
+    """
+    Stores and initializes audiofile, channel, speaker,  start & stop times, label, and text
+
+    >>> seg = segment({"text":"this is a test"})
+
+    """
     self.data = segment_dict
 
   def __str__(self, data_handler=None):
     """
       Returns the string corresponding to TXT format by default
+      >>> seg = segment({"text":"this is a test"})
+      >>> print(seg)
+      this is a test
     """
     ret_str = ""
 
@@ -36,3 +44,8 @@ class segment(object):
       ret_str = self.data['text']
 
     return ret_str
+
+
+if __name__ == "__main__":
+  import doctest
+  doctest.testmod()
