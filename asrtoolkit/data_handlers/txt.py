@@ -12,7 +12,7 @@ def format_segment(seg):
   """
     Formats a segment assuming it's an instance of class segment with text element
   """
-  return seg.text
+  return seg.data['text']
 
 
 def read_file(file_name):
@@ -22,5 +22,5 @@ def read_file(file_name):
   segments = []
   with open(file_name, encoding="utf-8") as f:
     for line in f:
-      segments.append(segment(text=line.strip()))
+      segments.append(segment({'text': line.strip()}))
   return segments

@@ -15,7 +15,7 @@ def format_segment(seg):
     Formats a segment assuming it's an instance of class segment with elements
     audiofile, channel, speaker, start and stop times, label, and text
   """
-  return " ".join((seg.audiofile, seg.channel, seg.speaker, seg.start, seg.stop, seg.label, seg.text))
+  return " ".join(seg.dict[_] for _ in ('audiofile', 'channel', 'speaker', 'start', 'stop', 'label', 'text'))
 
 
 def parse_line(line):
@@ -31,7 +31,15 @@ def parse_line(line):
     # apply kaldi logic and skip empty lines or lines where this fails
     if speaker != "inter_segment_gap" and text and text != "ignore_time_segment_in_scoring":
       seg = segment(
-        audiofile=audiofile, channel=channel, speaker=speaker, start=start, stop=stop, label=label, text=text
+        {
+          'audiofile': audiofile,
+          'channel': channel,
+          'speaker': speaker,
+          'start': start,
+          'stop': stop,
+          'label': label,
+          'text': text
+        }
       )
   return seg
 
