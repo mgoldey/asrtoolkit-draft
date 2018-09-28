@@ -27,21 +27,18 @@ def parse_line(line):
   if len(data) > 6:
     audiofile, channel, speaker, start, stop, label = data[:6]
     text = " ".join(data[6:])
-
-    # apply kaldi logic and skip empty lines or lines where this fails
-    if speaker != "inter_segment_gap" and text and text != "ignore_time_segment_in_scoring":
-      seg = segment(
-        {
-          'audiofile': audiofile,
-          'channel': channel,
-          'speaker': speaker,
-          'start': start,
-          'stop': stop,
-          'label': label,
-          'text': text
-        }
-      )
-  return seg
+    seg = segment(
+      {
+        'audiofile': audiofile,
+        'channel': channel,
+        'speaker': speaker,
+        'start': start,
+        'stop': stop,
+        'label': label,
+        'text': text
+      }
+    )
+  return seg if seg and seg.validate() else None
 
 
 def read_file(file_name):

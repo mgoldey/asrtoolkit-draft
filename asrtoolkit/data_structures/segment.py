@@ -5,6 +5,30 @@ Class for holding a segment
 """
 
 
+def std_float(number, num_decimals=2):
+  """
+    Print a number to string with n digits after the decimal point (default = 2)
+  """
+  return "{0:.{1:}f}".format(float(number), num_decimals)
+
+
+def timestampToSeconds(timestamp):
+  """
+    Convert a timestamp to seconds
+  """
+  parts = timestamp.split(":")
+  return std_float(float(parts[0]) * 3600 + float(parts[1]) * 60 + float(parts[2]), 3)
+
+
+def secondsToTimestamp(seconds):
+  """
+    Convert from seconds to a timestamp
+  """
+  minutes, secondss = divmod(float(seconds), 60)
+  hours, minutes = divmod(minutes, 60)
+  return "%02d:%02d:%06.3f" % (hours, minutes, seconds)
+
+
 class segment(object):
   """
   Class for holding segment-specific information
@@ -44,6 +68,27 @@ class segment(object):
     ret_str = data_handler.format_segment(self) if data_handler else self.text
 
     return ret_str
+
+  def validate(self):
+    """
+      Checks for common failure cases for if a line is valid or not
+    """
+    valid = self.speaker != "inter_segment_gap" and \
+      self.text and \
+      self.text != "ignore_time_segment_in_scoring" and \
+      self.label in ["<o,f0,male>", "<o,f0,female>"]
+
+    try:
+      self.start = timestampToSeconds(self.start) if ":" in self.start else std_float(self.start)
+      self.stop = timestampToSeconds(self.stop) if ":" in self.stop else std_float(self.stop)
+    except Exception as exc:
+      valid = False
+      print(exc)
+
+    if not valid:
+      print("Skipping segment due to validation error: \n", " ".join(self.__dict__[_] for _ in self.__dict__))
+
+    return valid
 
 
 if __name__ == "__main__":
