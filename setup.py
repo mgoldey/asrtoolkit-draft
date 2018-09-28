@@ -13,7 +13,10 @@ setup(
   author_email='matthew.goldey@gmail.com',
   install_requires=['edit_distance', 'termcolor', 'asr_evaluation'],
   keywords=['word', 'error', 'rate', 'asr', 'speech', 'recognition'],
-  entry_points={'console_scripts': ['convert_text = asrtoolkit.convert_text:main']},
+  entry_points={
+    'console_scripts':
+      ['convert_transcript = asrtoolkit.convert_transcript:main', 'clean_formatting=asrtoolkit.clean_formatting:main']
+  },
   license='Apache v2',
   packages=['asrtoolkit'],
   zip_safe=True
