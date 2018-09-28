@@ -29,6 +29,13 @@ def secondsToTimestamp(seconds):
   return "%02d:%02d:%06.3f" % (hours, minutes, seconds)
 
 
+def clean_float(input_float):
+  """
+    Return float in seconds (even if it was a timestamp originally)
+  """
+  return timestampToSeconds(input_float) if ":" in input_float else std_float(input_float)
+
+
 class segment(object):
   """
   Class for holding segment-specific information
@@ -79,8 +86,8 @@ class segment(object):
       self.label in ["<o,f0,male>", "<o,f0,female>"]
 
     try:
-      self.start = timestampToSeconds(self.start) if ":" in self.start else std_float(self.start)
-      self.stop = timestampToSeconds(self.stop) if ":" in self.stop else std_float(self.stop)
+      self.start = clean_float(self.start)
+      self.stop = clean_float(self.stop)
     except Exception as exc:
       valid = False
       print(exc)
