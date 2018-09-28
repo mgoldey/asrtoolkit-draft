@@ -12,17 +12,18 @@ class time_aligned_text(object):
   Class for storing time-aligned text and converting between formats
   """
 
+  location = None
   segments = []
+  file_extension = None
 
-  def __init__(self, input_var=None):
+  def __init__(self, input_file=None):
     """
     Instantiates a time_aligned text object from a file (if input_var is a string)
 
     >>> transcript = time_aligned_text()
     """
-    self.file_extension = None
-    if isinstance(input_var, str):
-      self.read(input_var)
+    if input_file is not None and isinstance(input_file, str):
+      self.read(input_file)
 
   def __str__(self):
     """
@@ -40,15 +41,24 @@ class time_aligned_text(object):
   def read(self, file_name):
     """ Read a file using class-specific read function """
     self.file_extension = file_name.split(".")[-1]
+    self.location = file_name
     data_handler = importlib.import_module("asrtoolkit.data_handlers.{:}".format(self.file_extension))
     self.segments = data_handler.read_file(file_name)
 
   def write(self, file_name):
     """ Output to file using segment-specific __str__ function """
     file_extension = file_name.split(".")[-1] if '.' in file_name else 'stm'
+
+    if "-" in file_name.split("/")[-1]:
+      print("Replacing hyphens with underscores in transcript file output- check to make sure your audio files match")
+      file_name = "/".join(file_name.split("/")[:-1]) + file_name.split("/")[-1].replace("-", "_")
+
     data_handler = importlib.import_module("asrtoolkit.data_handlers.{:}".format(file_extension))
     with open(file_name, 'w', encoding="utf-8") as f:
       f.writelines("\n".join(seg.__str__(data_handler) for seg in self.segments))
+
+    # return back new object in case we are updating a list in place
+    return time_aligned_text(file_name)
 
 
 if __name__ == "__main__":

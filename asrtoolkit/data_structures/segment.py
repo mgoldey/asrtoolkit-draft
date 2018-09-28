@@ -56,14 +56,14 @@ class segment(object):
   # text to be populated from read class
   text = ""
 
-  def __init__(self, segment_dict):
+  def __init__(self, input_dict=None):
     """
     Stores and initializes audiofile, channel, speaker,  start & stop times, label, and text
 
     >>> seg = segment({"text":"this is a test"})
 
     """
-    self.__dict__.update(segment_dict)
+    self.__dict__.update(input_dict if input_dict else {})
 
   def __str__(self, data_handler=None):
     """
