@@ -15,7 +15,7 @@ def format_segment(seg):
     Formats a segment assuming it's an instance of class segment with elements
     audiofile, channel, speaker, start and stop times, label, and text
   """
-  return " ".join(seg.dict[_] for _ in ('audiofile', 'channel', 'speaker', 'start', 'stop', 'label', 'text'))
+  return " ".join(seg.__dict__[_] for _ in ('audiofile', 'channel', 'speaker', 'start', 'stop', 'label', 'text'))
 
 
 def parse_line(line):

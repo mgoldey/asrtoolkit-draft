@@ -88,6 +88,10 @@ class segment(object):
     if not valid:
       print("Skipping segment due to validation error: \n", " ".join(self.__dict__[_] for _ in self.__dict__))
 
+    if "-" in self.audiofile:
+      self.audiofile = self.audiofile.replace("-", "_")
+      print("Please rename audio file to replace hyphens with underscores")
+
     return valid
 
 
