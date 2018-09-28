@@ -84,12 +84,14 @@ class corpus(object):
     target = self.location if target is None else target
 
     # clean up
+    basename = lambda file_name: file_name.split("/")[-1]
+
     audio_files = [
-      _.audio_file.prepare_for_training(target + "/" + _.audio_file.location.split("/")[-1]) for _ in self.exemplars
+      _.audio_file.prepare_for_training(target + "/" + basename(_.audio_file.location)) for _ in self.exemplars
     ]
 
     transcript_files = [
-      _.transcript_file.write(target + "/" + _.transcript_file.location.split("/")[-1]) for _ in self.exemplars
+      _.transcript_file.write(target + "/" + basename(_.transcript_file.location)) for _ in self.exemplars
     ]
 
     new_corpus = corpus(

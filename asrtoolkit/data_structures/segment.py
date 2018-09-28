@@ -12,7 +12,7 @@ def std_float(number, num_decimals=2):
   return "{0:.{1:}f}".format(float(number), num_decimals)
 
 
-def timestampToSeconds(timestamp):
+def timestamp_to_seconds(timestamp):
   """
     Convert a timestamp to seconds
   """
@@ -20,7 +20,7 @@ def timestampToSeconds(timestamp):
   return std_float(float(parts[0]) * 3600 + float(parts[1]) * 60 + float(parts[2]), 3)
 
 
-def secondsToTimestamp(seconds):
+def seconds_to_timestamp(seconds):
   """
     Convert from seconds to a timestamp
   """
@@ -33,7 +33,7 @@ def clean_float(input_float):
   """
     Return float in seconds (even if it was a timestamp originally)
   """
-  return timestampToSeconds(input_float) if ":" in input_float else std_float(input_float)
+  return timestamp_to_seconds(input_float) if ":" in input_float else std_float(input_float)
 
 
 class segment(object):

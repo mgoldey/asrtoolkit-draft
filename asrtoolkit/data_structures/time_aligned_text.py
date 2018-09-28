@@ -5,6 +5,7 @@ Class for holding time_aligned text
 """
 
 import importlib
+from asrtoolkit.file_utils.sanitize_hyphens import sanitize_hyphens
 
 
 class time_aligned_text(object):
@@ -49,9 +50,7 @@ class time_aligned_text(object):
     """ Output to file using segment-specific __str__ function """
     file_extension = file_name.split(".")[-1] if '.' in file_name else 'stm'
 
-    if "-" in file_name.split("/")[-1]:
-      print("Replacing hyphens with underscores in transcript file output- check to make sure your audio files match")
-      file_name = "/".join(file_name.split("/")[:-1]) + file_name.split("/")[-1].replace("-", "_")
+    file_name = sanitize_hyphens(file_name)
 
     data_handler = importlib.import_module("asrtoolkit.data_handlers.{:}".format(file_extension))
     with open(file_name, 'w', encoding="utf-8") as f:
