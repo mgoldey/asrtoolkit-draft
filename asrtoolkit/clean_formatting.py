@@ -204,24 +204,24 @@ def main():
   if len(sys.argv) == 1:
     import doctest
     doctest.testmod()
-  else:
-    for file_name in sys.argv[1:]:
-      extension = file_name.split(".")[-1]
-      if extension != 'txt':
-        print("File does not end in .txt - please only use this for cleaning txt files")
-        continue
 
-      with open(file_name, 'r', encoding='utf-8') as f:
-        lines = f.readlines()
+  for file_name in sys.argv[1:]:
+    extension = file_name.split(".")[-1]
+    if extension != 'txt':
+      print("File does not end in .txt - please only use this for cleaning txt files")
+      continue
 
-      cleaned = []
-      for line in lines:
-        cleaned.append(clean_up(line))
+    with open(file_name, 'r', encoding='utf-8') as f:
+      lines = f.readlines()
 
-      with open(file_name.replace('.txt', '') + '_cleaned.txt', 'w', encoding='utf-8') as f:
-        f.writelines(cleaned)
+    cleaned = []
+    for line in lines:
+      cleaned.append(clean_up(line))
 
-      print('File output: ' + file_name.replace('.txt', '') + '_cleaned.txt')
+    with open(file_name.replace('.txt', '') + '_cleaned.txt', 'w', encoding='utf-8') as f:
+      f.writelines(cleaned)
+
+    print('File output: ' + file_name.replace('.txt', '') + '_cleaned.txt')
 
 
 if __name__ == '__main__':
