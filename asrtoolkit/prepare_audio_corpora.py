@@ -14,12 +14,12 @@ from asrtoolkit.data_structures.corpus import corpus
 
 
 def main():
-  parser = argparse.ArgumentParser(description='Download specified corpora into a target directory.')
+  parser = argparse.ArgumentParser(description='Copy and organize specified corpora into a target directory. Training, testing, and development sets will be created automatically if not already defined.')
   parser.add_argument(
     '--target-dir',
     default='input-data',
     required=False,
-    help="Path to directory containing directories specified by corpora argument"
+    help="Path to target directory"
   )
   parser.add_argument('corpora', nargs='+', help="Name of one or more directories in directory this script is run")
 
