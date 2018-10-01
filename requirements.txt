@@ -1,0 +1,5 @@
+asr_evaluation
+edit_distance
+pytest
+termcolor
+tqdm

@@ -4,6 +4,9 @@ Creates asrtoolkit
 """
 from setuptools import setup, find_packages
 
+with open('requirements.txt') as f:
+  required = f.read().splitlines()
+
 setup(
   name='asrtoolkit',
   version='0.1',
@@ -11,7 +14,7 @@ setup(
   url='http://github.com/asrtool',
   author='Matthew Goldey',
   author_email='matthew.goldey@gmail.com',
-  install_requires=['edit_distance', 'termcolor', 'asr_evaluation', 'tqdm'],
+  install_requires=required,
   keywords="asr speech recognition greenkey word error rate",
   entry_points={
     'console_scripts':
