@@ -5,6 +5,9 @@ Module for organizing SPH, STM files from a corpus
 
 import os
 import glob
+from concurrent.futures import ThreadPoolExecutor
+from functools import partial
+from tqdm import tqdm
 
 from asrtoolkit.data_structures.audio_file import audio_file
 from asrtoolkit.data_structures.time_aligned_text import time_aligned_text
@@ -86,9 +89,16 @@ class corpus(object):
     # clean up
     basename = lambda file_name: file_name.split("/")[-1]
 
-    audio_files = [
-      _.audio_file.prepare_for_training(target + "/" + basename(_.audio_file.location)) for _ in self.exemplars
+    executor = ThreadPoolExecutor()
+
+    # process audio files concurrently for speed
+    futures = [
+      executor.submit(partial(_.audio_file.prepare_for_training, target + "/" + basename(_.audio_file.location)))
+      for _ in self.exemplars
     ]
+
+    # trigger conversion and gather results
+    audio_files = [future.result() for future in tqdm(futures)]
 
     transcript_files = [
       _.transcript_file.write(target + "/" + basename(_.transcript_file.location)) for _ in self.exemplars

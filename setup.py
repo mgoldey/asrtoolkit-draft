@@ -11,7 +11,7 @@ setup(
   url='http://github.com/asrtool',
   author='Matthew Goldey',
   author_email='matthew.goldey@gmail.com',
-  install_requires=['edit_distance', 'termcolor', 'asr_evaluation'],
+  install_requires=['edit_distance', 'termcolor', 'asr_evaluation', 'tqdm'],
   keywords="asr speech recognition greenkey word error rate",
   entry_points={
     'console_scripts':
