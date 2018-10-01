@@ -1,14 +1,10 @@
 # GreenKey Automatic Speech Recognition (ASR) Toolkit
-> Speed up ASR file processing with common utilities
 
 <img src="https://github.com/finos-voice/greenkey-voice-sdk/raw/master/logo/greenkey-logo.png" width="100" />
 
 ---
 
-## The GreenKey ASRToolkit has a series of data structures, and, most importantly, some convenient script wrapping these data structures and classes.
-
-###
-###
+## The GreenKey ASRToolkit provides tools for file conversion and ASR corpora organization. These are intended to simplify the workflow for building, customizing, and analyzing ASR models.
 
 
 ### convert_transcript 
@@ -59,7 +55,7 @@ This script scrapes a list of directories for paired STM and SPH files. If `trai
 ```text
 usage: degrade_audio_file input_file1.wav input_file2.wav
 
-Degrades audio files to 8 kHz format similar to G711 codec
+Degrade audio files to 8 kHz format similar to G711 codec
 ```
 This script reduces audio quality of input audio files so that acoustic models can learn features from telephony with the G711 codec.
 
@@ -95,10 +91,6 @@ Please make sure you read and observe our [Code of Conduct].
 1. Push to the branch (`git push origin feature/fooBar`)
 1. Create a new Pull Request
 
-## Versioning
-
-We use [SemVer] for versioning.  For the versions available, see the [tags on this repository].
-
 ## Authors
 
 Original authors:
@@ -112,4 +104,3 @@ For all others who have aided this project, please see the [list of contributors
 This project is licensed under the Apache 2.0 License - see the [LICENSE.md](LICENSE.md) file for details.
 
 <!-- Markdown link & img defs -->
-[SemVer]: http://semver.org
